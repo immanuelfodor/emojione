@@ -44,6 +44,8 @@ function eo_get_router()
 
 function hook_emojione_render_includes($data)
 {
+    $router = eo_get_router();
+
     $data['css_files'][] = PluginManager::$PLUGINS_PATH . '/emojione/assets/css/emojione.css';
 
     if (eo_strip_underscores($data['_PAGE_']) == eo_strip_underscores($router::$PAGE_EDITLINK)) {
@@ -55,6 +57,8 @@ function hook_emojione_render_includes($data)
 
 function hook_emojione_render_footer($data)
 {
+    $router = eo_get_router();
+
     /*
      * Comment the five lines below to disable the autocomplete function.
      * If your theme use jquery, you must comment the jquery.min.js line to avoid conflicts.
