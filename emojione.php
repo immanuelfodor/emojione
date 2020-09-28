@@ -27,25 +27,14 @@ function eo_get_router()
     return $oldShaarliRouter;
 }
 
-/**
- * Get plugin assets base path
- * 
- * @param array $data - hook data
- * 
- * @return string - the basepath of the assets
- */
-function eo_get_basepath($data) {
-    return ($data['_BASE_PATH_'] ?? '') . '/' . PluginManager::$PLUGINS_PATH;
-}
-
 function hook_emojione_render_includes($data)
 {
     $router = eo_get_router();
+    $include_dir = PluginManager::$PLUGINS_PATH . '/emojione/assets/css';
 
-    $data['css_files'][] = eo_get_basepath($data) . '/emojione/assets/css/emojione.css';
-
+    $data['css_files'][] = $include_dir . '/emojione.css';
     if ($data['_PAGE_'] == $router::$PAGE_EDITLINK) {
-        $data['css_files'][] = eo_get_basepath($data) . '/emojione/assets/css/autocomplete.css';
+        $data['css_files'][] = $include_dir . '/autocomplete.css';
     }
 
     return $data;
@@ -54,20 +43,21 @@ function hook_emojione_render_includes($data)
 function hook_emojione_render_footer($data)
 {
     $router = eo_get_router();
+    $include_dir = PluginManager::$PLUGINS_PATH . '/emojione/assets/js';
 
     /*
      * Comment the five lines below to disable the autocomplete function.
      * If your theme use jquery, you must comment the jquery.min.js line to avoid conflicts.
      */
     if ($data['_PAGE_'] == $router::$PAGE_EDITLINK) {
-        $data['js_files'][] = eo_get_basepath($data) . '/emojione/assets/js/jquery.min.js';
-        $data['js_files'][] = eo_get_basepath($data) . '/emojione/assets/js/textcomplete.min.js';
-        $data['js_files'][] = eo_get_basepath($data) . '/emojione/assets/js/autocomplete.js';
+        $data['js_files'][] = $include_dir . '/jquery.min.js';
+        $data['js_files'][] = $include_dir . '/textcomplete.min.js';
+        $data['js_files'][] = $include_dir . '/autocomplete.js';
     }
 
-    $data['js_files'][] = eo_get_basepath($data) . '/emojione/assets/js/emojione.min.js';
-    $data['js_files'][] = eo_get_basepath($data) . '/emojione/assets/js/unicode.js';
-    $data['js_files'][] = eo_get_basepath($data) . '/emojione/assets/js/emojione.js';
+    $data['js_files'][] = $include_dir . '/emojione.min.js';
+    $data['js_files'][] = $include_dir . '/unicode.js';
+    $data['js_files'][] = $include_dir . '/emojione.js';
 
     return $data;
 }
